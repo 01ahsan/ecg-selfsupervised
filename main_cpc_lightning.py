@@ -382,28 +382,22 @@ if __name__ == '__main__':
     lr_monitor = LearningRateMonitor()
 
     trainer = pl.Trainer(
-        #overfit_batches=0.01,
-        auto_lr_find = hparams.lr_find,
+        auto_lr_find=hparams.lr_find,
         accumulate_grad_batches=hparams.accumulate,
         max_epochs=hparams.epochs,
         min_epochs=hparams.epochs,
-        
         default_root_dir=hparams.output_path,
-        
         num_sanity_val_steps=0,
-        
         logger=logger,
-        callbacks=[checkpoint_callback, lr_monitor],#lr_monitor],
+        callbacks=[checkpoint_callback, lr_monitor],
         benchmark=True,
-    
         gpus=hparams.gpus,
         num_nodes=hparams.num_nodes,
         precision=hparams.precision,
-        distributed_backend=hparams.distributed_backend,
-        
         progress_bar_refresh_rate=0,
         weights_summary='top',
-        resume_from_checkpoint= None if hparams.resume=="" else hparams.resume)
+        resume_from_checkpoint=None if hparams.resume == "" else hparams.resume
+    )
         
     if(hparams.lr_find):#lr find
         trainer.tune(model)
