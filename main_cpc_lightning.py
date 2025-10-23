@@ -378,8 +378,7 @@ if __name__ == '__main__':
 	    save_last=True,
 	    verbose=True,
 	    monitor='macro_auc_agg0' if hparams.finetune else 'val_loss',
-	    mode='max' if hparams.finetune else 'min'
-	)
+	    mode='max' if hparams.finetune else 'min')
     lr_monitor = LearningRateMonitor()
 
     trainer = pl.Trainer(
