@@ -371,14 +371,15 @@ if __name__ == '__main__':
         #version="",#hparams.metadata.split(":")[0],
         name="")
     print("Output directory:",logger.log_dir)    
-    checkpoint_callback = ModelCheckpoint(
-	dirpath=logger.log_dir,  # Specify directory for checkpoints
-	    filename="best_model",    # Optional: Name of the checkpoint file
+	checkpoint_callback = ModelCheckpoint(
+	    dirpath=os.path.join(logger.log_dir),
+	    filename="best_model",
 	    save_top_k=1,
 	    save_last=True,
 	    verbose=True,
 	    monitor='macro_auc_agg0' if hparams.finetune else 'val_loss',
-	    mode='max' if hparams.finetune else 'min')
+	    mode='max' if hparams.finetune else 'min'
+	)
     lr_monitor = LearningRateMonitor()
 
     trainer = pl.Trainer(
@@ -393,8 +394,7 @@ if __name__ == '__main__':
         num_sanity_val_steps=0,
         
         logger=logger,
-        checkpoint_callback=checkpoint_callback,
-        callbacks = [],#lr_monitor],
+        callbacks=[checkpoint_callback, lr_monitor],#lr_monitor],
         benchmark=True,
     
         gpus=hparams.gpus,
