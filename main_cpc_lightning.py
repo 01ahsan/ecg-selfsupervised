@@ -371,7 +371,7 @@ if __name__ == '__main__':
         #version="",#hparams.metadata.split(":")[0],
         name="")
     print("Output directory:",logger.log_dir)    
-	checkpoint_callback = ModelCheckpoint(
+    checkpoint_callback = ModelCheckpoint(
         dirpath=os.path.join(logger.log_dir),
         filename="best_model",
         save_top_k=1,
