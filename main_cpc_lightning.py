@@ -372,13 +372,13 @@ if __name__ == '__main__':
         name="")
     print("Output directory:",logger.log_dir)    
     checkpoint_callback = ModelCheckpoint(
-        filepath=os.path.join(logger.log_dir,"best_model"),#hparams.output_path
-        save_top_k=1,
-		save_last=True,
-        verbose=True,
-        monitor='macro_auc_agg0' if hparams.finetune else 'val_loss',#val_loss/dataloader_idx_0
-        mode='max' if hparams.finetune else 'min',
-        prefix='')
+	dirpath=logger.log_dir,  # Specify directory for checkpoints
+	    filename="best_model",    # Optional: Name of the checkpoint file
+	    save_top_k=1,
+	    save_last=True,
+	    verbose=True,
+	    monitor='macro_auc_agg0' if hparams.finetune else 'val_loss',
+	    mode='max' if hparams.finetune else 'min'
     lr_monitor = LearningRateMonitor()
 
     trainer = pl.Trainer(
