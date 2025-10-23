@@ -62,7 +62,8 @@ class LightningCPC(pl.LightningModule):
     def __init__(self, hparams):
         super(LightningCPC, self).__init__()
         
-        self.hparams = hparams
+        # Save hyperparameters using PyTorch Lightning's method
+        self.save_hyperparameters(hparams)
         self.lr = self.hparams.lr
         
         #these coincide with the adapted wav2vec2 params
