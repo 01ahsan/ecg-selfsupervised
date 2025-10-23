@@ -394,7 +394,6 @@ if __name__ == '__main__':
         gpus=hparams.gpus,
         num_nodes=hparams.num_nodes,
         precision=hparams.precision,
-        weights_summary='top',
         resume_from_checkpoint=None if hparams.resume == "" else hparams.resume
     )
         
